@@ -2,6 +2,6 @@
 
 echo "Ejecuntando script"
 service nginx start
-service tomcat start
+service tomcat-qa start
 tail -F -n0 /etc/hosts
 echo "Terminanod script"
