@@ -20,9 +20,11 @@ RUN mv /root/apache-tomcat-8.5.5 /root/qa-tomcat
 RUN chmod +x /root/qa-tomcat/bin/catalina.sh
 RUN chmod +x /root/qa-tomcat/bin/startup.sh
 
-COPY tomcat /etc/init.d/
-RUN chmod +x /etc/init.d/tomcat
-RUN update-rc.d tomcat defaults
+RUN cp -R /root/qa-tomcat /root/stage-tomcat
+
+COPY tomcat-qa /etc/init.d/tomcat-qa
+RUN chmod +x /etc/init.d/tomcat-qa
+RUN update-rc.d tomcat-qa defaults
 
 COPY init.sh /usr/local/bin/init_server.sh
 #COPY logging.properties /logging.properties
