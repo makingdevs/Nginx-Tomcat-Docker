@@ -8,7 +8,8 @@ RUN apt-get -y install nginx
 #VOLUME ["/root/.jenkins"]
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY nginx.virtual.conf /etc/nginx/conf.d/virtual-host.conf
+COPY nginx.virtual.qa.conf /etc/nginx/conf.d/virtual-host.qa.conf
+COPY nginx.virtual.stage.conf /etc/nginx/conf.d/virtual-host.stage.conf
 
 RUN apt-get -y install default-jdk
 
