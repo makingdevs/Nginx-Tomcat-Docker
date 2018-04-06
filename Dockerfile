@@ -13,9 +13,9 @@ COPY nginx.virtual.stage.conf /etc/nginx/conf.d/virtual-host.stage.conf
 
 RUN apt-get -y install default-jdk
 
-RUN wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.5/bin/apache-tomcat-8.5.5.zip -P /root/
-RUN unzip /root/apache-tomcat-8.5.5.zip -d /root/
-RUN mv /root/apache-tomcat-8.5.5 /root/qa-tomcat
+RUN wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.zip -P /root/
+RUN unzip /root/apache-tomcat-8.5.29.zip -d /root/
+RUN mv /root/apache-tomcat-8.5.29 /root/qa-tomcat
 
 RUN chmod +x /root/qa-tomcat/bin/catalina.sh
 RUN chmod +x /root/qa-tomcat/bin/startup.sh
@@ -37,6 +37,7 @@ RUN update-rc.d tomcat-stage defaults
 COPY init.sh /usr/local/bin/init_server.sh
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
+RUN ln -sf /dev/stdout /root/qa-tomcat/logs/catalina.out
 
 CMD ["sh", "/usr/local/bin/init_server.sh"]
 
