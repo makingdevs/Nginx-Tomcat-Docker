@@ -36,8 +36,9 @@ RUN update-rc.d tomcat-stage defaults
 
 COPY init.sh /usr/local/bin/init_server.sh
 
-RUN
+RUN rm -rf /root/qa-tomcat/webapps/* 
 COPY sample.war /root/qa-tomcat/webapps/
+RUN mv /root/qa-tomcat/webapps/sample.war /root/qa-tomcat/webapps/ROOT.war
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stdout /root/qa-tomcat/logs/catalina.out
