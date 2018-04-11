@@ -2,7 +2,7 @@
 
 ## Docker Nginx - Tomcat 
 
-Este repo contiene la instalacion con docker de Nginx y Tomcat, con dos virtual host llamado qa.makingdevs.com y stage.makingdevs.com
+Este repo contiene la instalación con docker de Nginx y Tomcat, elementos personalizables como virtualhost y configuracion
 
 ### Prepación
 
@@ -54,33 +54,36 @@ eval $(docker-machine env <Nombre de maquina>)
 
 Listo, con ellos tendremos lista nuestra maquina para intalar la imagen de nginx - jenkins en ella.
 
-### Creando nuestro docker container con Nginx - Jenkins
+### Creando nuestro docker container con Nginx - Tomcat 
 
 Clonamos el repo y nos posicionamos dentro de el. El primer paso sera construir la imagen de docker la cual instalaremos a nuestra maquina previamente creada. Podremos nombrar nuestra imagen como queramos.
 
+Los elementos personalizables son los siguientes:
+
+- URL_WAR=URL_DEL_WAR_A_DEPLOYAR 
+- FILE_NAME_CONFIGURATION=ARCHIVO_CONF.groovy -- Este arhcivo debe de estar dentro del repo -- 
+- PATH_NAME_CONFIGURATION=PATH_DE_LA_CONFIG_DEL_PROYECTO -- /root es el home del container
+- HOST_NAME=web.domain.com -- Dominio de nginx
+
 ```
-docker build -t <Nombre de la imagen> .
+docker build --build-arg URL_WAR=http://url.com --build-arg FILE_NAME_CONFIGURATION=application.groovy --build-arg PATH_NAME_CONFIGURATION=/root/.config/ --build-arg HOST_NAME=web.domain.com -t <Nombre de la imagen> .
 ```
 
 Una vez terminado tendremos lista nuestra imagen para ejecutarla.
 
 ```
-docker run --name <Nombre del proceso> -p 80:80 -p 8080:8080 -d --env JAVA_OPTS="-Djava.util.logging.config.file=/logging.properties" <Nombre de la imagen>
+docker run --name <Nombre del proceso> -p 80:80 -d <Nombre de la imagen>
 
 docker ps 
 ```
 
-Con `docker ps ` nos aseguramos de que el proceso se encuntre activo y listo con ellos ya tenemos un nginx y tomcat ejecutandose dentro de nuestra maquina. podremos ver nuestros tomcats.
-
-qa.makingdevs.com 
-stage.makingdevs.com
+Con `docker ps ` nos aseguramos de que el proceso se encuntre activo y listo con ellos ya tenemos un nginx y tomcat ejecutandose dentro de nuestra maquina.
 
 Si estas en una maquina virtual host agrega esto en tu archivo 'hosts' de tu maquina (en OSX es /private/etc/hosts)
 
 ```
 
-127.0.0.1 qa.makingdevs.com
-127.0.0.1 stage.makingdevs.com
+127.0.0.1 qa.dominio.com (127.0.0.1 remplazalo por la ip de la maquina de docker, con docker-machine ls puedes ver la ip)
 
 ```
 
@@ -96,12 +99,9 @@ docker logs -f <Nombre del proceso> | grep catalina
 
 ```
 docker stop <Nombre del proceso> --Para detener el proceso 
-dokcer rm <Nombre del proceso> --Para eliminar el proceso 
-
-docker run --name <Nombre del proceso> -d -v /Users/makingdevs/jenkins:/root/.jenkins --env JAVA_OPTS="-Djava.util.logging.config.file=/logging.properties" *Nombre-Imagen*
+docker rm <Nombre del proceso> --Para eliminar el proceso 
+docker exec -i -t <Nombre del proceso> /bin/bash
 ```
-
-Este ultimo comando nos ayuda a correr la imagen, agregando un enlance de un directorio (Home de Jenkins) de docker a nuestra maquina en la cual estemaos ejecutando docker (Importante esto solo funciona en virtualbox no en amazon)
 
 ### Exportar o importar docker machiner
 
