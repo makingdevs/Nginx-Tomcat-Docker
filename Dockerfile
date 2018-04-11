@@ -13,6 +13,7 @@ RUN wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2
 RUN yum -y localinstall jdk-8u161-linux-x64.rpm
 RUN export JAVA_HOME=/usr/java/jdk1.8.0_161/jre
 RUN sh -c "echo export JAVA_HOME=/usr/java/jdk1.8.0_161/jre >> /etc/environment"
+RUN rm jdk-8u161-linux-x64.rpm
 
 RUN yum -y install initscripts && yum clean all
 
@@ -44,4 +45,4 @@ RUN ln -sf /dev/stdout /root/qa-web-tomcat/logs/catalina.out
 
 CMD ["sh", "/usr/local/bin/init_server.sh"]
 
-EXPOSE 80 8080
+EXPOSE 80
