@@ -38,7 +38,8 @@ COPY init.sh /usr/local/bin/init_server.sh
 
 RUN mkdir /root/.modulusuno
 ARG FILE_NAME_CONFIGURATION
-COPY $FILE_NAME_CONFIGURATION /root/.modulusuno/
+ARG PATH_NAME_CONFIGURATION
+COPY $FILE_NAME_CONFIGURATION $PATH_NAME_CONFIGURATION
 
 RUN rm -rf /root/tomcat/webapps/*
 ARG URL_WAR
