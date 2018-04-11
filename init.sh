@@ -1,7 +1,7 @@
 #! /bin/bash -e
 
 echo "Ejecuntando script"
-service tomcat-web start
+service tomcat start
 nginx
 tail -F -n0 /etc/hosts
 echo "Terminanod script"
