@@ -27,12 +27,12 @@ export JAVA_OPTS="-Dfile.encoding=UTF-8\
   -XX:MaxPermSize=128m \
   -Xms512m -Xmx512m"
 export PATH=$JAVA_HOME/bin:$PATH
-export CATALINA_BASE=/root/qa-web-tomcat
-export TOMCAT_HOME=/root/qa-web-tomcat
+export CATALINA_BASE=/root/tomcat
+export TOMCAT_HOME=/root/tomcat
 SHUTDOWN_WAIT=20
 
 tomcat_pid() {
-  echo `ps aux | grep org.apache.catalina.startup.Bootstrap | grep tomcat_web | grep -v grep | awk '{ print $2 }'`
+  echo `ps aux | grep org.apache.catalina.startup.Bootstrap | grep tomcat | grep -v grep | awk '{ print $2 }'`
 }
 
 start() {
