@@ -1,20 +1,12 @@
 FROM centos:7
 
-RUN yum update
 RUN yum -y install wget
 RUN yum -y install unzip
-RUN yum -y install epel-release
-RUN yum -y install nginx
-
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY nginx.virtual.conf /etc/nginx/conf.d/virtual-host.conf
 
 RUN wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.rpm"
 RUN yum -y localinstall jdk-8u161-linux-x64.rpm
 RUN export JAVA_HOME=/usr/java/jdk1.8.0_161/jre
 RUN sh -c "echo export JAVA_HOME=/usr/java/jdk1.8.0_161/jre >> /etc/environment"
-ARG HOST_NAME
-RUN sh -c "echo export HOST_NAME=$HOST_NAME >> /etc/environment"
 RUN rm jdk-8u161-linux-x64.rpm
 
 RUN yum -y install initscripts && yum clean all
@@ -36,18 +28,17 @@ RUN chkconfig tomcat on
 
 COPY init.sh /usr/local/bin/init_server.sh
 
-RUN mkdir /root/.modulusuno
 ARG FILE_NAME_CONFIGURATION
 ARG PATH_NAME_CONFIGURATION
+RUN mkdir $PATH_NAME_CONFIGURATION
 COPY $FILE_NAME_CONFIGURATION $PATH_NAME_CONFIGURATION
 
 RUN rm -rf /root/tomcat/webapps/*
 ARG URL_WAR
 ADD $URL_WAR /root/tomcat/webapps/
 
-RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 RUN ln -sf /dev/stdout /root/tomcat/logs/catalina.out
 
 CMD ["sh", "/usr/local/bin/init_server.sh"]
 
-EXPOSE 80
+EXPOSE 8080
