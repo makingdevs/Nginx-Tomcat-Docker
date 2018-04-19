@@ -16,7 +16,7 @@
 
 ## Source function library.
 #. /etc/rc.d/init.d/functions
-export JAVA_HOME=/usr/java/jdk1.8.0_161/jre
+export JAVA_HOME=/usr/java/jdk1.8.0_171/jre
 export JAVA_OPTS="-Dfile.encoding=UTF-8\
   -Dcatalina.logbase=/var/log/tomcat7 \
   -Dnet.sf.ehcache.skipUpdateCheck=true \
@@ -37,7 +37,7 @@ tomcat_pid() {
 
 start() {
   pid=$(tomcat_pid)
-  if [ -n "$pid" ] 
+  if [ -n "$pid" ]
   then
     echo "Tomcat is already running (pid: $pid)"
   else
@@ -75,17 +75,17 @@ stop() {
   else
     echo "Tomcat is not running"
   fi
- 
+
   return 0
 }
 
 case $1 in
 start)
   start
-;; 
-stop)   
+;;
+stop)
   stop
-;; 
+;;
 restart)
   stop
   start
@@ -98,6 +98,6 @@ status)
   else
     echo "Tomcat is not running"
   fi
-;; 
-esac    
+;;
+esac
 exit 0
