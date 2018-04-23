@@ -3,7 +3,7 @@ FROM centos:7
 RUN yum -y install wget
 RUN yum -y install unzip
 
-RUN wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-linux-x64.rpm"
+RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/jdk/jdk-8u171-linux-x64.rpm
 RUN yum -y localinstall jdk-8u171-linux-x64.rpm
 RUN export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre
 RUN sh -c "echo export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre >> /etc/environment"
@@ -11,7 +11,7 @@ RUN rm jdk-8u171-linux-x64.rpm
 
 RUN yum -y install initscripts && yum clean all
 
-RUN wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.30/bin/apache-tomcat-8.5.30.zip -P /root/
+RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/tomcat8/apache-tomcat-8.5.30.zip -P /root/
 RUN unzip /root/apache-tomcat-8.5.30.zip -d /root/
 RUN mv /root/apache-tomcat-8.5.30 /root/tomcat
 
