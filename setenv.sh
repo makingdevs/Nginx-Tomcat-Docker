@@ -1,0 +1,1 @@
+export CATALINA_OPTS="-Dspring.config.location=file:/root/.sepomex/application-PRODUCTION.yml"
