@@ -19,6 +19,8 @@ RUN chmod +x /root/tomcat/bin/catalina.sh
 RUN chmod +x /root/tomcat/bin/startup.sh
 
 COPY server.xml  /root/tomcat/conf/server.xml
+COPY setenv.sh  /root/tomcat/bin/setenv.sh
+RUN chmod +x /root/tomcat/bin/setenv.sh
 
 COPY tomcat /etc/init.d/tomcat
 
