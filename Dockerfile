@@ -41,6 +41,12 @@ ADD $URL_WAR /root/tomcat/webapps/
 
 RUN ln -sf /dev/stdout /root/tomcat/logs/catalina.out
 
+ARG FILENAME_LOG
+RUN touch /root/tomcat/logs/$FILENAME_LOG
+RUN ln -sf /dev/stdout /root/tomcat/logs/$FILENAME_LOG
+
+RUN mkdir /root/nginxConf/
+
 CMD ["sh", "/usr/local/bin/init_server.sh"]
 
 EXPOSE 8080
