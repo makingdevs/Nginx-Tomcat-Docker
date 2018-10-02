@@ -3,11 +3,14 @@ FROM centos:7
 RUN yum -y install wget
 RUN yum -y install unzip
 
-RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/jdk/jdk-8u171-linux-x64.rpm
-RUN yum -y localinstall jdk-8u171-linux-x64.rpm
-RUN export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre
-RUN sh -c "echo export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre >> /etc/environment"
-RUN rm jdk-8u171-linux-x64.rpm
+RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/jdk1.8.0_60.zip
+#RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/jdk/jdk-8u171-linux-x64.rpm
+#RUN yum -y localinstall jdk-8u171-linux-x64.rpm
+RUN unzip jdk1.8.0_60.zip -P /root/
+#RUN export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre
+RUN export JAVA_HOME=/root/jdk1.8.0_60/jre
+RUN sh -c "echo export JAVA_HOME=/root/jdk1.8.0_60/jre >> /etc/environment"
+#RUN rm jdk-8u171-linux-x64.rpm
 
 RUN yum -y install initscripts && yum clean all
 

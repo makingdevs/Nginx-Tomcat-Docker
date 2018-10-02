@@ -16,7 +16,7 @@
 
 ## Source function library.
 #. /etc/rc.d/init.d/functions
-export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/jre
+export JAVA_HOME=/usr/java/jdk1.8.0_60/jre
 export JAVA_OPTS="-Dfile.encoding=UTF-8\
   -Dcatalina.logbase=/var/log/tomcat7 \
   -Dnet.sf.ehcache.skipUpdateCheck=true \
