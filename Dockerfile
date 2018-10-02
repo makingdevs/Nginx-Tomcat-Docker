@@ -11,9 +11,10 @@ RUN rm jdk-8u171-linux-x64.rpm
 
 RUN yum -y install initscripts && yum clean all
 
-RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/tomcat8/apache-tomcat-8.5.30.zip -P /root/
-RUN unzip /root/apache-tomcat-8.5.30.zip -d /root/
-RUN mv /root/apache-tomcat-8.5.30 /root/tomcat
+RUN http://docker.war.deployments.s3.amazonaws.com/third-party/tomcat_qa.zip
+#RUN wget http://docker.war.deployments.s3.amazonaws.com/third-party/tomcat8/apache-tomcat-8.5.30.zip -P /root/
+RUN unzip /root/tomcat_qa.zip -d /root/
+RUN mv /root/tomcat_qa /root/tomcat
 
 RUN chmod +x /root/tomcat/bin/catalina.sh
 RUN chmod +x /root/tomcat/bin/startup.sh
