@@ -47,6 +47,16 @@ RUN ln -sf /dev/stdout /root/tomcat/logs/$FILENAME_LOG
 
 RUN mkdir /root/nginxConf/
 
+RUN cd /tmp && \
+    wget http://dl.bintray.com/groovy/maven/apache-groovy-binary-2.4.8.zip && \
+    unzip apache-groovy-binary-2.4.8.zip && \
+    mv groovy-2.4.8 /groovy && \
+    rm apache-groovy-binary-2.4.8.zip
+
+ENV GROOVY_HOME /groovy
+ENV PATH $GROOVY_HOME/bin/:$PATH
+ENV JAVA_HOME /usr/java/jdk1.8.0_171-amd64/jre
+
 CMD ["sh", "/usr/local/bin/init_server.sh"]
 
 EXPOSE 8080
